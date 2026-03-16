@@ -1,4 +1,4 @@
-package 手撕.LRU;
+package 手撕;
 
 import java.util.HashMap;
 import java.util.concurrent.DelayQueue;
