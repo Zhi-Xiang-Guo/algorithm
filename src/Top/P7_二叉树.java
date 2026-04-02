@@ -202,12 +202,13 @@ public class P7_二叉树 {
     }
 
     private int dfs(TreeNode node) {
-        if (node == null) return 0;
-        int left = dfs(node.left);
-        int right = dfs(node.right);
-        int curSum = node.val + left + right;
-        ans = Math.max(ans, curSum);
-        return Math.max(0, node.val + Math.max(left, right));
+        if (node == null) {
+            return 0;
+        }
+        int lVal = dfs(node.left);
+        int rVal = dfs(node.right);
+        ans = Math.max(ans, lVal + rVal + node.val);
+        return Math.max(0, Math.max(lVal, rVal) + node.val);
     }
 
     public int countNodes(TreeNode root) {
@@ -389,8 +390,8 @@ public class P7_二叉树 {
         if (root == null) return true;
         //check cur  then
         return root.val > minValue && root.val < maxValue
-                && isValidBST(root.left,minValue,root.val)
-                && isValidBST(root.right,root.val,maxValue);
+                && isValidBST(root.left, minValue, root.val)
+                && isValidBST(root.right, root.val, maxValue);
 
     }
 }

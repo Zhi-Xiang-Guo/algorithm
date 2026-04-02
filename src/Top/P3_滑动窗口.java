@@ -91,40 +91,8 @@ public class P3_滑动窗口 {
     }
 
     public String minWindow(String s, String t) {
-        // ✅优化：避免遍历 128 、自己维护 needMatch 是否匹配
-        int[] needWindow = new int[128];
-        int[] window = new int[128];
-        int needMatch = 0;
-        for (char c : t.toCharArray()) {
-            if (needWindow[c] == 0) needMatch++;
-            needWindow[c]++;
-        }
+        int l = 0 ;
 
-        int left = 0, right = 0, len = s.length();
-        int minLeft = 0, minLen = Integer.MAX_VALUE;
-        int curMatch = 0;
-        char[] cs = s.toCharArray();
-        while (right < len) {
-            //add
-            char add = cs[right++];
-            window[add]++;
-            if (needWindow[add] > 0 && window[add] == needWindow[add]) curMatch++;
-
-            // remove
-            while (needMatch == curMatch) {
-                if (right - left < minLen) {
-                    minLeft = left;
-                    minLen = right - left;
-                }
-                char remove = cs[left];
-                if (needWindow[remove] > 0 && needWindow[remove] == window[remove]) {
-                    curMatch--;
-                }
-                window[remove]--;
-                left++;
-            }
-        }
-        return minLen == Integer.MAX_VALUE ? "" : s.substring(minLeft, minLeft + minLen);
     }
 
 

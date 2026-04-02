@@ -48,6 +48,20 @@ public class P6_链表 {
         return false;
     }
 
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (fast == slow) { // 相遇 同步 一起走
+                head = head.next;
+                slow = slow.next;
+                return slow;
+            }
+        }
+        return null;
+    }
+
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode p1 = l1, p2 = l2;
         ListNode tmp = new ListNode(-1), p = tmp;

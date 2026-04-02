@@ -5,10 +5,11 @@ import java.util.Map;
 
 class LRUCache {
     // ✅ 记住这个结构
+    // ✅ Cmd + N (macOS)
     private static class Node {
         int key, value;
         Node prev, next;
-        // ✅ Cmd + N (macOS)
+
         public Node(int value, int key) {
             this.value = value;
             this.key = key;
@@ -16,11 +17,14 @@ class LRUCache {
     }
 
     private final int capacity;
-    private final Node dummy = new Node(0, 0);
-    private final Map<Integer, Node> keyToNode = new HashMap<>();
+    private final Node dummy;
+    private final Map<Integer, Node> keyToNode; //  val -Node
+
     public LRUCache(int capacity) {
         this.capacity = capacity;
+        keyToNode = new HashMap<>();
         // ✅ 初始化才做 链表逻辑
+        dummy = new Node(0, 0); // 面试吹说 懒加载 不写上面 导致
         dummy.prev = dummy;
         dummy.next = dummy;
     }
@@ -47,9 +51,9 @@ class LRUCache {
         }
     }
 
+    // ✅ 对 ndoe 访问 有 lru 放前面 的逻辑、抽取放啊
     private Node getNode(int key) {
         if (!keyToNode.containsKey(key)) return null;
-        // ✅ 有个话 需要移动位置到前面
         Node node = keyToNode.get(key);
         remove(node);
         pushFront(node);
